@@ -3,18 +3,18 @@
          xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
+         cacheDirectory=".phpunit.cache"
 >
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
-
-    </coverage>
     <testsuites>
-        <testsuite name="SmsGlobal Test Suit">
+        <testsuite name="SmsGlobal Test Suite">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </source>
     <php>
         <server name="APP_ENV" value="testing"/>
     </php>

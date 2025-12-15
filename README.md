@@ -1,4 +1,4 @@
-Use this package to send SMS with [SmsGlobal](https://www.smsglobal.com/) in `Laravel 10`.
+Use this package to send SMS with [SmsGlobal](https://www.smsglobal.com/) in `Laravel 10`, `Laravel 11`, and `Laravel 12`.
 
 ## Installation
 
@@ -32,7 +32,7 @@ In your `services.php` change the value of `sms_global.debug` to `false`
 
 ### Notification class
 
-Using Laravel [notification class](https://laravel.com/docs/8.x/notifications) add `SmsGlobalChannel::class` to `via()`
+Using Laravel [notification class](https://laravel.com/docs/11.x/notifications) add `SmsGlobalChannel::class` to `via()`
 method like so:
 
 ```php

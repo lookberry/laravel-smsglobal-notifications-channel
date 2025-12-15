@@ -2,7 +2,9 @@
 
 namespace Tests;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Config;
+use SalamWaddah\SmsGlobal\Credentials;
 use SalamWaddah\SmsGlobal\SmsGlobalChannel;
 use SalamWaddah\SmsGlobal\SmsGlobalMessage;
 
@@ -15,10 +17,12 @@ class ChannelTest extends TestCase
     {
         Config::set('services.sms_global.origin', 'Salam');
 
-        $channel = new SmsGlobalChannel();
+        $credentials = new Credentials();
+        $events = $this->mock(Dispatcher::class);
+
+        $channel = new SmsGlobalChannel($credentials, $events);
         $message = new SmsGlobalMessage();
 
-        $message->to('+971555555555');
         $message->content('hi there');
 
         $expected = [
@@ -29,7 +33,22 @@ class ChannelTest extends TestCase
 
         $this->assertSame(
             $expected,
-            $channel->toArray($message)
+            $channel->toArray($message, '+971555555555')
         );
+    }
+
+    /**
+     * @test
+     */
+    public function get_origin_returns_config_value(): void
+    {
+        Config::set('services.sms_global.origin', 'TestOrigin');
+
+        $credentials = new Credentials();
+        $events = $this->mock(Dispatcher::class);
+
+        $channel = new SmsGlobalChannel($credentials, $events);
+
+        $this->assertSame('TestOrigin', $channel->getOrigin());
     }
 }
